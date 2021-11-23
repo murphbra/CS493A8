@@ -21,7 +21,6 @@ function fromDatastore(item) {
     return item;
 }
 
-app.set('trust proxy', true); 
 /* ------------- Begin Lodging Model Functions ------------- */
 
 function post_boat(name, type, length) {
@@ -57,11 +56,6 @@ function get_boat(id) {
     });
 }
 
-function delete_boat(id) {
-    const key = datastore.key([BOAT, parseInt(id, 10)]);
-    return datastore.delete(key); 
-}
-
 /* ------------- End Model Functions ------------- */
 
 /* ------------- Begin Controller Functions ------------- */
@@ -69,17 +63,15 @@ router.get('/home', function(req, res) {
     res.send("Test confirmed"); 
 }); 
 
+router.post('/home', function(req, res){
+    res.send(req.body.name); 
+}); 
 
 router.get('/boats', function (req, res) {
     const boats = get_boats().then((boats) => {
-
-            for(var i = 0; i< boats.length ; i++)
-            {
-                boats[i].self = "https://cs493a3.wm.r.appspot.com/boats/" + boats[i].id; 
-            }
-            res.status(200).json(boats);
-        });
-});
+        res.status(200).json(boats);
+    }); 
+}); 
 
 router.post('/boats', function (req, res) {
     if(req.body.length === undefined)
