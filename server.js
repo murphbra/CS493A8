@@ -12,7 +12,6 @@ const datastore = new Datastore();
 
 const BOAT = "Boat"; 
 
-
 const router = express.Router();
 
 app.use(bodyParser.json());
@@ -115,38 +114,6 @@ router.get('/boats/:id', function (req, res) {
             }
         });
 });
-
-
-router.delete('/boats/:boat_id', function(req, res) {
-    get_boat(req.params.boat_id)
-    .then (boat =>
-        {
-            if (boat[0] === undefined || boat[0] === null) 
-            {
-                // The 0th element is undefined. This means there is no lodging with this id
-                res.status(404).json({ 'Error': 'No boat with this boat_id exists' }).end(); 
-            }
-            else
-            {
-                const slips = get_slips().then((slips) => { 
-                    for(var i = 0; i < slips.length; i++)
-                    {
-                        if(slips[i].current_boat !== null)
-                        {
-                            if(slips[i].current_boat == req.params.boat_id)
-                            {
-                                var slipsID = slips[i].id; 
-                                var slipsNum = slips[i].number; 
-                                boat_departs_slip(slipsID, slipsNum); 
-                            }
-                        }
-                    }
-                }); 
-
-                delete_boat(req.params.boat_id).then(res.status(204).end()); 
-            }
-        })
-}); 
 
 /* ------------- End Controller Functions ------------- */
 
