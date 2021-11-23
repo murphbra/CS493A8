@@ -1,5 +1,5 @@
 //Author: Brayden Murphy
-//CS 493 Assignment 3
+//CS 493 Assignment 8
 // Adapted from example code provided in course materials for CS 493 
 
 const express = require('express');
@@ -165,7 +165,7 @@ router.post('/boats', function (req, res) {
     else 
     {
         post_boat(req.body.name, req.body.type, req.body.length).then(new_boat => { 
-            new_boat.self = "https://cs493a3.wm.r.appspot.com/boats/" + new_boat.id; 
+            //new_boat.self = "https://cs493a3.wm.r.appspot.com/boats/" + new_boat.id; 
             res.status(201).send(new_boat); 
         }); 
     }
@@ -227,7 +227,7 @@ router.get('/boats/:id', function (req, res) {
             if (boat[0] === undefined || boat[0] === null) {
                 res.status(404).json({ 'Error': 'No boat with this boat_id exists' });
             } else {
-                boat[0].self = "https://cs493a3.wm.r.appspot.com/boats/" + boat[0].id; 
+                //boat[0].self = "https://cs493a3.wm.r.appspot.com/boats/" + boat[0].id; 
                 res.status(200).json(boat[0]);
             }
         });
@@ -364,7 +364,7 @@ router.delete('/boats/:boat_id', function(req, res) {
 app.use('/', router);
 
 // Listen to the App Engine-specified port, or 8080 otherwise
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
 });
