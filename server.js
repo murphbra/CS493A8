@@ -33,10 +33,6 @@ function post_boat(name, type, length) {
         return new_boat });
 }
 
- * The function datastore.query returns an array, where the element at index 0
- * is itself an array. Each element in the array at element 0 is a JSON object
- * with an entity fromt the type "Lodging".
- */
 
 function get_boats() {
     const q = datastore.createQuery(BOAT);
